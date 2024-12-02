@@ -1,11 +1,76 @@
 ---
 version: 2
-
 updates:
-  - package-ecosystem: gomod
-    directory: /tests
+  - package-ecosystem: terraform
+    directory: ./examples/cmk-pin-key-version
     schedule:
       interval: daily
+    target-branch: avmupgrades
+    allow:
+      - dependency-type: all
+  - package-ecosystem: terraform
+    directory: ./examples/default
+    schedule:
+      interval: daily
+    target-branch: avmupgrades
+    allow:
+      - dependency-type: all
+  - package-ecosystem: terraform
+    directory: ./examples/managed-identities
+    schedule:
+      interval: daily
+    target-branch: avmupgrades
+    allow:
+      - dependency-type: all
+  - package-ecosystem: terraform
+    directory: ./examples/max-account
+    schedule:
+      interval: daily
+    target-branch: avmupgrades
+    allow:
+      - dependency-type: all
+  - package-ecosystem: terraform
+    directory: ./examples/mongo
+    schedule:
+      interval: daily
+    target-branch: avmupgrades
+    allow:
+      - dependency-type: all
+  - package-ecosystem: terraform
+    directory: ./examples/private-endpoints-managed-dns-records
+    schedule:
+      interval: daily
+    target-branch: avmupgrades
+    allow:
+      - dependency-type: all
+  - package-ecosystem: terraform
+    directory: ./examples/private-endpoints-unmanaged-dns-records
+    schedule:
+      interval: daily
+    target-branch: avmupgrades
+    allow:
+      - dependency-type: all
+  - package-ecosystem: terraform
+    directory: ./examples/public-restricted-access
+    schedule:
+      interval: daily
+    target-branch: avmupgrades
+    allow:
+      - dependency-type: all
+  - package-ecosystem: terraform
+    directory: ./examples/serverless
+    schedule:
+      interval: daily
+    target-branch: avmupgrades
+    allow:
+      - dependency-type: all
+  - package-ecosystem: terraform
+    directory: ./examples/sql
+    schedule:
+      interval: daily
+    target-branch: avmupgrades
+    allow:
+      - dependency-type: all
   - package-ecosystem: "github-actions"
     directory: "/.github/workflows"
     schedule:
