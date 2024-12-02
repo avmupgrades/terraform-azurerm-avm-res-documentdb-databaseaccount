@@ -1,0 +1,70 @@
+name: AVMUpgrades - Update dependabot.yml
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 1'
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]   # Run weekly on Monday at 00:00 UTC
+
+permissions:
+  contents: write
+
+jobs:
+  update-main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod a+x /usr/local/bin/yq
+
+      - name: Check tests folder and update dependabot.yml
+        run: |
+          if [ -d "tests" ] && [ "$(find tests -mindepth 1 -type d -o -name '*.go' | wc -l)" -eq 0 ]; then
+            echo "Tests folder exists but contains no subdirectories or Go files. Updating dependabot.yml..."
+          else
+            echo "Tests folder either doesn't exist, or contains subdirectories or Go files. Updating dependabot.yml..."
+          fi
+          if yq e '.updates[] | select(.directory == "/tests")' .github/dependabot.yml | grep -q .; then
+            yq eval 'del(.updates[] | select(.directory == "/tests"))' .github/dependabot.yml > dependabot_updated.yml
+            mv dependabot_updated.yml .github/dependabot.yml
+            echo "CHANGES_MADE=true" >> $GITHUB_ENV
+          else
+            echo "No /tests entry found in dependabot.yml. No changes needed."
+          fi
+
+      - name: Find examples directories
+        id: find_dirs
+        run: |
+          DIRS=$(find ./examples -type d -mindepth 1 -maxdepth 1 | jq -R -s -c 'split("\n")[:-1]')
+          echo "dirs=$DIRS" >> $GITHUB_OUTPUT
+
+      - name: Update dependabot.yml with example directories
+        run: |
+          DIRS='${{ steps.find_dirs.outputs.dirs }}'
+          echo "Directories found: $DIRS"
+          echo $DIRS | jq -r '.[]' | while read -r dir; do
+            echo "Processing directory: $dir"
+            if ! yq e '.updates[] | select(.directory == "'"$dir"'")' .github/dependabot.yml | grep -q .; then
+              yq e -i '.updates += {"package-ecosystem": "terraform", "directory": "'"$dir"'", "schedule": {"interval": "daily"}, "target-branch": "avmupgrades", "allow": [{"dependency-type": "all"}]}' .github/dependabot.yml
+            fi
+          done
+
+      - name: Remove duplicate entries and sort
+        run: |
+          yq e -i '(.updates | unique_by(.directory) | sort_by(.directory)) as $unique | .updates = $unique' .github/dependabot.yml
+
+      - name: Commit and push changes
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .github/dependabot.yml
+          git diff --quiet && git diff --staged --quiet || (git commit -m "[AVMUpgrades] Update dependabot.yml" && git push origin main)
