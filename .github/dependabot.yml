@@ -4,7 +4,7 @@ updates:
     schedule:
       interval: daily
     target-branch: avmupgrades
-    directory: "examples/default"
+    directory: "/examples/default"
     commit-message:
       include: scope
       prefix: "chore"
