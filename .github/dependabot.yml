@@ -9,9 +9,9 @@ updates:
     allow:
       - dependency-type: all
   - package-ecosystem: terraform
-    directory: examples/default
+    directory: ./examples/default
     schedule:
-      interval: weekly
+      interval: daily
     target-branch: avmupgrades
     allow:
       - dependency-type: all
@@ -75,3 +75,10 @@ updates:
     directory: "/.github/workflows"
     schedule:
       interval: daily
+  - package-ecosystem: terraform
+    directory: examples/default
+    schedule:
+      interval: weekly
+    target-branch: avmupgrades
+    allow:
+      - dependency-type: all
