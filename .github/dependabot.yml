@@ -1,1 +1,13 @@
 version: 2
+updates:
+  - package-ecosystem: terraform
+    schedule:
+      interval: daily
+    target-branch: avmupgrades
+    directories:
+      -  "./examples/default"
+    commit-message:
+      include: scope
+      prefix: "chore"
+    allow:
+      - dependency-type: all
