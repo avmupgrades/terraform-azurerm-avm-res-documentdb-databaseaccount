@@ -9,7 +9,7 @@ updates:
     allow:
       - dependency-type: all
   - package-ecosystem: terraform
-    directory: examples/default
+    directory: "./examples/default"
     schedule:
       interval: daily
     target-branch: avmupgrades
