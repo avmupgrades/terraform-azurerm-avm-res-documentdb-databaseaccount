@@ -1,12 +1,8 @@
 version: 2
 updates:
-  - package-ecosystem: terraform
-    schedule:
-      interval: daily
-    target-branch: avmupgrades
+  - package-ecosystem: "terraform"
     directory: "/examples/default"
-    commit-message:
-      include: scope
-      prefix: "chore"
+    schedule:
+      interval: "weekly"
     allow:
       - dependency-type: all
