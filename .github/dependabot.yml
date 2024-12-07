@@ -11,7 +11,7 @@ updates:
   - package-ecosystem: terraform
     directory: ./examples/default
     schedule:
-      interval: daily
+      interval: weekly
     target-branch: avmupgrades
     allow:
       - dependency-type: all
