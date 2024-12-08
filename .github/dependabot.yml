@@ -17,3 +17,7 @@ updates:
       interval: "daily"
     allow:
       - dependency-type: all
+    groups:
+      terraform-all:
+        patterns:
+          - "*"

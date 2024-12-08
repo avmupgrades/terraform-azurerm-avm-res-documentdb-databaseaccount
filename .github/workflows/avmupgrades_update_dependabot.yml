@@ -1,13 +1,7 @@
 name: AVMUpgrades - Update dependabot.yml
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * 1'
-  push:
-    branches: [ mainx ]
-  pull_request:
-    branches: [ mainx ]   # Run weekly on Monday at 00:00 UTC
+  workflow_dispatch:  # Run weekly on Monday at 00:00 UTC
 
 permissions:
   contents: write
