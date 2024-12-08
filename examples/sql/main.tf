@@ -75,7 +75,7 @@ module "cosmos" {
       containers = {
         empty_container = {
           name               = "empty_container"
-          partition_key_path = "/id"
+          partition_key_paths = "/id"
         }
       }
     }
@@ -100,7 +100,7 @@ module "cosmos" {
       containers = {
         container_fixed_througput = {
           name               = "container_fixed_througput"
-          partition_key_path = "/id"
+          partition_key_paths = "/id"
           throughput         = 400
         }
       }
@@ -116,7 +116,7 @@ module "cosmos" {
       containers = {
         container_fixed_througput = {
           name               = "container_fixed_througput"
-          partition_key_path = "/id"
+          partition_key_paths = "/id"
 
           autoscale_settings = {
             max_throughput = 4000
@@ -131,13 +131,13 @@ module "cosmos" {
       containers = {
         container_fixed_througput = {
           name               = "container_fixed_througput"
-          partition_key_path = "/id"
+          partition_key_paths = "/id"
           throughput         = 400
         }
 
         container_autoscale_througput = {
           name               = "container_autoscale_througput"
-          partition_key_path = "/id"
+          partition_key_paths = "/id"
 
           autoscale_settings = {
             max_throughput = 4000
@@ -146,25 +146,25 @@ module "cosmos" {
 
         container_infinite_analytical_ttl = {
           name                   = "container_infinite_analytical_ttl"
-          partition_key_path     = "/id"
+          partition_key_paths     = "/id"
           analytical_storage_ttl = -1
         }
 
         container_fixed_analytical_ttl = {
           name                   = "container_fixed_analytical_ttl"
-          partition_key_path     = "/id"
+          partition_key_paths     = "/id"
           analytical_storage_ttl = 1000
         }
 
         container_document_ttl = {
           name               = "container_document_ttl"
-          partition_key_path = "/id"
+          partition_key_paths = "/id"
           default_ttl        = 1000
         }
 
         container_unique_keys = {
           name               = "container_unique_keys"
-          partition_key_path = "/id"
+          partition_key_paths = "/id"
 
           unique_keys = [
             {
@@ -175,7 +175,7 @@ module "cosmos" {
 
         container_conflict_resolution_with_path = {
           name               = "container_conflict_resolution_with_path"
-          partition_key_path = "/id"
+          partition_key_paths = "/id"
 
           conflict_resolution_policy = {
             mode                     = "LastWriterWins"
@@ -185,7 +185,7 @@ module "cosmos" {
 
         container_conflict_resolution_with_stored_procedure = {
           name               = "container_conflict_resolution_with_stored_procedure"
-          partition_key_path = "/id"
+          partition_key_paths = "/id"
 
           conflict_resolution_policy = {
             mode                          = "Custom"
@@ -202,7 +202,7 @@ module "cosmos" {
 
         container_with_functions = {
           name               = "container_with_functions"
-          partition_key_path = "/id"
+          partition_key_paths = "/id"
 
           functions = {
             empty = {
@@ -214,7 +214,7 @@ module "cosmos" {
 
         container_with_stored_procedures = {
           name               = "container_with_stored_procedures"
-          partition_key_path = "/id"
+          partition_key_paths = "/id"
 
           stored_procedures = {
             empty = {
@@ -228,7 +228,7 @@ module "cosmos" {
 
         container_with_triggers = {
           name               = "container_with_triggers"
-          partition_key_path = "/id"
+          partition_key_paths = "/id"
 
           triggers = {
             testTrigger = {
@@ -242,7 +242,7 @@ module "cosmos" {
 
         container_with_none_index_policy = {
           name               = "container_with_none_index_policy"
-          partition_key_path = "/id"
+          partition_key_paths = "/id"
 
           indexing_policy = {
             indexing_mode = "none"
@@ -251,7 +251,7 @@ module "cosmos" {
 
         container_with_consistent_index_policy = {
           name               = "container_with_consistent_index_policy"
-          partition_key_path = "/id"
+          partition_key_paths = "/id"
 
           indexing_policy = {
             indexing_mode = "consistent"
