@@ -1,7 +1,18 @@
 version: 2
 updates:
   - package-ecosystem: "terraform"
-    directory: "/examples/default"
+    directories:
+      - "/"
+      - "/examples/default"
+      - "/examples/cmk-pin-key-version"
+      - "/examples/managed-identities"
+      - "/examples/max-account"
+      - "/examples/mongo"
+      - "/examples/private-endpoints-managed-dns-records"
+      - "/examples/private-endpoints-unmanaged-dns-records"
+      - "/examples/public-restricted-access"
+      - "/examples/serverless"
+      - "/examples/sql"
     schedule:
       interval: "weekly"
     allow:
