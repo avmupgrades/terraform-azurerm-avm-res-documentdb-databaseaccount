@@ -44,7 +44,7 @@ variable "sql_databases" {
 
     containers = optional(map(object({
       partition_key_paths = string
-      name               = string
+      name                = string
 
       throughput             = optional(number, null)
       default_ttl            = optional(number, null)
